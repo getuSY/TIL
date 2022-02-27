@@ -74,18 +74,23 @@ for s in range(S):
 
 states = dict(zip(switches, initial_state))
 
+# 
 students = int(input())
 for student in range(students):
     switch_num = list(states.keys())
     switch_value = list(states.values())
     number = list(map(int, input().split()))
 
+    # 남자의 경우
     if number[0] == 1:
         for num in switch_num:
+            # 스위치 번호가 받은 번호의 배수라면 상태를 바꾼다
             if num % number[1] == 0:
                 states[num] = 1 - states[num]
 
+    # 여자의 경우
     elif number[0] == 2:
+        # 받은 번호 양쪽 어디까지 찾을 것인지 설정을 위해 iterate 설정
         iterate = 0
         if S/2 > number[1]:
             iterate = number[1]
@@ -94,6 +99,7 @@ for student in range(students):
         elif round(S/2) < number[1]:
             iterate = 2*round(S/2) - number[1]
 
+        # 양쪽 itertate 수 만큼 
         for i in range(1, iterate):
             if switch_value[number[1] - 1 - i] == switch_value[number[1] - 1 + i]:
                 states[number[1] - i] = 1 - states[number[1] - i]
@@ -101,13 +107,16 @@ for student in range(students):
             else:
                 break
 
+        # 가장 마지막으로 여자가 받은 번호의 스위치 상태를 바꾼다
         states[number[1]] = 1 - states[number[1]]
 
 
 
 result = list(map(str, states.values()))
+# 20개씩 줄바꿈을 하기 위하 변수 설정
 enter = S/20
 
+# 출력을 20개씩 끊기 위한 코드
 if enter < 1:
     print(' '.join(result))
 elif enter > 1:
