@@ -284,7 +284,7 @@ def update(reqeuest, pk):
             article = form.save()
             return redirect('articles:upate', article.pk)
     else:     # update
-        form = ArticleForm()
+        form = ArticleForm(instance=article)
     context = {
         'form': form, 
         'article':article,
@@ -326,18 +326,76 @@ Form Class에서는 따로 쓸 수 있었다.
 ModelForm에서는 **widgets= {}** 변수 지정하여 작성할 수 있음. **BUT** 권장하지 않는다.
 
 ```python
+class ArticleForm(forms.ModelForm):
+    
+    class Meta:
+        model = Article
+        fields = '__all__'
+        widgets = {                                  # widgets!!!
+            'title': forms.TextInput(attrs={
+                'class':'my-title',
+                'placeholder': 'Enter the title',
+                'maxlength': 10,
+            })
+        }
 ```
 
-
-
-
-
-
-
-### 수동으로 바꾸기
-
 ```python
-# 다른 방식으로 form 출력하기
+# 권장하는 방법
+class ArticleForm(forms.ModelForm):
+    title = forms.CharField( # ModelForm이 아니라 그냥 Form 작성하듯 field 설정
+    	label='제목',
+    	widget=forms.TextInput(                      # widget!!! s 없음!
+        	attrs={
+                'class':'my-title',
+                'placeholder':'Entet the title',
+            	}
+        	),
+    )
+    class Meta:
+        model = Article
+        fields = '__all__'
+        }
+```
+
+- form 각각에 style을 적용하고 싶다면 widgets을 활용해서 따로 css 지정해야함!
+
+
+
+
+
+### Rendering fields manually
+
+```django
+<!--다른 방식으로 form 출력하기, form.as_p 사용 안 하고? -->
+<form action="" method="POST">
+    {% csrf_token %}
+    <div>
+        {{ form.title.errors }}
+        {{ form.title.label_tag }}
+        {{ form.title }}
+    </div>
+    <div>
+        {{ form.content.errors }}
+        {{ form.content.laber-tag }}
+        {{ form.content }}
+    </div>
+    <input type="submit">
+</form>
+
+```
+
+```django
+<!-- 반복문 활용 -->
+<form action="" method="POST">
+    {% csrf_token %}
+    {% for field in form %}
+    	{{ field.errors }}
+    	{{ field.label_tag }}
+    	{{ field }}
+    {% endfor %}
+    <input type="submit">
+</form>
 ```
 
 - working with forms documentaion 참고 : https://docs.djangoproject.com/en/4.0/topics/forms/
