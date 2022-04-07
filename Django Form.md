@@ -31,7 +31,7 @@ class ArticleForm(forms.Form):
 ```
 
 - forms.TextField가 없는 이유? (model.TextField)
-  - 제공하지 않아서 쓸 수가 없는 건가?
+  - 제공하지 않아서 쓸 수가 없는 건가? <= 나중에 widget으로 비슷하게 적용할 수 있다!
 - forms.CharField는 max_length가 필수가 아니다!  = > model에선 필수였음
 
 
@@ -57,7 +57,7 @@ def new(request):
 
 #### Form rendering options
 
-<label>, <input> 쌍의 출력 옵션!  <= 없으면 input은 inline 속성이므로 옆으로 한 줄 출력되!
+<label>, <input> 쌍의 출력 옵션!  <= 없으면 input은 inline 속성이므로 옆으로 한 줄 출력됨!
 
 1. as_p() : 각 필드가 p태그로 감싸져서 렌더링 됨
 2. as_ul() : 각 필드가 li 태그로 감싸져서 렌더링 됨.  <ul> 태그는 직접 작성해야 함
