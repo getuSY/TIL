@@ -93,11 +93,20 @@ class ArticleForm(forms.Form):
 ```
 
 - input 속성이 textarea로 바뀜. (Forms.Password 하면 input type = password가 된다)
+
 - FormField로 먼저 작성을 하고, FormField로 작성할 수 없는 경우에는 Widgets으로 작성해야한다.
+
 - Widgets 목록 : https://docs.djangoproject.com/en/4.0/ref/forms/widgets/#widgets-handling-input-of-text
+
 - Form Fields와 혼동되어서는 안됨. 단순히 input element의 처리만 한다.
+
 - 유효성 검사는 여전히 Form Fields가 한다!
+
 - REGION_ 을 왜 저렇게 작성 했는가? Django Coding Style 문서 참조 : https://docs.djangoproject.com/en/dev/internals/contributing/writing-code/coding-style/
+
+- **직접 해보다가 찾은 점** : 직접 form에 choices를 구현할 경우, 'sl', 'dj', 'gj' 값이 web에 보인다! 튜플의 첫번째 인자 값이 보인다.  <= 두 번째 값을 보이게 하려면 어떻게 해야할까?
+
+  튜플 첫번째에 있는 것이 세션에 주고받는 것, 변수 뒤에 's1'이 나중에 다시 '서울'로 데이터를 보내줌으로써 저장되는 것. 
 
 
 
