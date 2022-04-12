@@ -185,6 +185,7 @@ def create(request):
 - is_valid() method : 데이터 유효성 검사 실행, 데이터가 유효한지 여부를 bool로 반환
 
   - 유효성 검사 : 데이터가 특정 조건에 충족하는지 확인하는 작업. 데이터베이스 각 필드 조건에 맞지 않는 데이터가 서버로 전송되거나 저장되지 않게 하기 위한 것. 
+  - 만약 공백으로 둬도 되는, 필수가 아닌 항목이 있다면 ModelForm 설정 시 fields에서 제외하거나 ecxclude를 사용해서 뺀다! => 하지만 view에서 form을 받을 때에는 필수가 아닌 데이터도 함께 받아서 redirect 해준다
 
 - save() method : 기존 model save 와는 다름. Form에 바인딩된 데이터에서 객체를 만들고 저장. 
 
