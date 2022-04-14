@@ -752,7 +752,7 @@ def update(request):
 ```
 
 ```django
-<!--accounts/signup.html-->
+<!--accounts/update.html-->
 {% extends 'base.html' %}
 
 {% block content %}
